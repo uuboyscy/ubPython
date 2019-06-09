@@ -49,6 +49,18 @@ class WeatherAPI:
         return data_weather_information_dict
 
 
+    def getTownIDDict(self):
+        town_id_dict = {}
+        data_city_dict = self.getAllCities()
+
+        for ct in data_city_dict:
+            for tn in ct['towns']:
+                town_id_dict['%s,%s' % (ct['name'], tn['name'])] = [ct['id'], tn['id']]
+
+        return town_id_dict
+
+
+
 
 # Test
 if __name__ == '__main__':
@@ -81,3 +93,9 @@ if __name__ == '__main__':
     # Get image url of town weather status
     status = location1.url_img_path_dir + location1.getTownWeatherInformation()['img']
     print('Get image url of town weather status : %s'%(status))
+
+    print()
+
+    # Get town ID by name
+    print('Get town ID by name dict :')
+    print(location1.getTownIDDict())
