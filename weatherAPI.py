@@ -60,6 +60,14 @@ class WeatherAPI:
         return town_id_dict
 
 
+    def getTownID(self, location_name = '中壢'):
+        town_id_dict = self.getTownIDDict()
+        for n in town_id_dict:
+            if location_name in str(n):
+                return town_id_dict[n][1]
+
+        return 81
+
 
 
 # Test
@@ -99,3 +107,9 @@ if __name__ == '__main__':
     # Get town ID by name
     print('Get town ID by name dict :')
     print(location1.getTownIDDict())
+
+    print()
+
+    # Get town ID
+    print('Get town ID :')
+    print('中壢 : %s'%(location1.getTownID('中壢')))
