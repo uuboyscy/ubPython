@@ -111,5 +111,6 @@ if __name__ == '__main__':
     print()
 
     # Get town ID
+    request_location = '中壢'
     print('Get town ID :')
-    print('中壢 : %s'%(location1.getTownID('中壢')))
+    print('%s : %s'%(request_location, location1.getTownID(request_location)))
