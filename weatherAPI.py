@@ -130,7 +130,7 @@ class WeatherAPI:
         self.sunrise = tmp_dict['sunrise']
         self.sunset = tmp_dict['sunset']
         self.update_time = tmp_dict['at']
-        self.specials = tmp_dict['specials'][0]
+        self.specials = tmp_dict['specials']
         
         return [self.img_url, self.desc, self.temperature, self.felt_air_temp, self.humidity, self.rainfall, 
                    self.sunrise, self.sunset, self.update_time]
