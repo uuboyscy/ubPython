@@ -7,6 +7,7 @@ name = "pypi"
 db-dtypes = "*"
 google-cloud-bigquery = "*"
 pandas = "*"
+pygsheets = "*"
 
 [dev-packages]
 ipykernel = "*"
