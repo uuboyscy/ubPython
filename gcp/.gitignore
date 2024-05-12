@@ -1,5 +1,6 @@
 # Secret
 bigquery-user.json
+secret-manager-viewer.json
 
 # Project meta
 Pipfile.lock
