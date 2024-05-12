@@ -6,6 +6,7 @@ GoogleSheets API usage limits:
 """
 
 import json
+import logging
 import time
 from pathlib import Path
 
@@ -15,13 +16,10 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import Resource, build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
-from prefect_gcp.secret_manager import GcpSecret
 from pygsheets.client import Client
 from pygsheets.exceptions import WorksheetNotFound
 
-from utils.logging_udf import get_logger
-
-logger = get_logger(in_prefect=True)
+BIGQUERY_CREDENTIALS_FILE_PATH = "/Users/uuboy.scy/PycharmProjects/ubPython/gcp/bigquery-user.json"
 
 # This id is from GoogleDrive folder
 # https://drive.google.com/drive/folders/2pWyw5zJygiqPUYZ2Js1CwfQIvBVJRoB8
@@ -31,18 +29,22 @@ GOOGLE_DRIVE_PARENTS_FOLDER_ID = "2pWyw5zJygiqPUYZ2Js1CwfQIvBVJRoB8"
 
 def get_google_sheet_client() -> Client:
     """Get Google Sheets client."""
+    with open(BIGQUERY_CREDENTIALS_FILE_PATH, "r") as f:
+        service_account_json_str = f.read()
     return pygsheets.authorize(
-        service_account_json=GcpSecret.load("google-drive").read_secret(),
+        service_account_json=service_account_json_str,
     )
 
 
 def get_drive_service() -> Resource:
     """get_drive_service."""
+    with open(BIGQUERY_CREDENTIALS_FILE_PATH, "r") as f:
+        service_account_json = json.loads(f.read())
     return build(
         "drive",
         "v3",
         credentials=Credentials.from_service_account_info(
-            json.loads(GcpSecret.load("google-drive").read_secret()),
+            service_account_json,
         ),
     )
 
@@ -83,7 +85,7 @@ def convert_excel_to_google_sheets(
             .execute()
         )
     except HttpError as err:
-        logger.error(err.args)  # noqa: TRY400
+        logging.error(err.args)  # noqa: TRY400
         time.sleep(60)
         file = (
             drive_service.files()
