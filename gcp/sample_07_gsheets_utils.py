@@ -19,7 +19,7 @@ from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 from pygsheets.client import Client
 from pygsheets.exceptions import WorksheetNotFound
 
-BIGQUERY_CREDENTIALS_FILE_PATH = "/Users/uuboy.scy/PycharmProjects/ubPython/gcp/bigquery-user.json"
+BIGQUERY_CREDENTIALS_FILE_PATH = "bigquery-user.json"
 
 # This id is from GoogleDrive folder
 # https://drive.google.com/drive/folders/2pWyw5zJygiqPUYZ2Js1CwfQIvBVJRoB8
