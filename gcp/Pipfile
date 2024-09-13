@@ -8,6 +8,7 @@ db-dtypes = "*"
 google-cloud-bigquery = "*"
 pandas = "*"
 pygsheets = "*"
+google-cloud-secret-manager = "*"
 
 [dev-packages]
 ipykernel = "*"
